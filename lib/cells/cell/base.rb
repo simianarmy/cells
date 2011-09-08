@@ -226,7 +226,9 @@ module Cells
         end
 
         def cache_configured?
-          ::ActionController::Base.cache_configured?
+          # ::ActionController::Base.cache_configured? does *not* return a boolean!
+          res = ::ActionController::Base.cache_configured?
+          !res.nil? && res.is_a?(::ActiveSupport::Cache::Store)
         end
       end
       
